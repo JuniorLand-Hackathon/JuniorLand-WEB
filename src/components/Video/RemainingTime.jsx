@@ -30,7 +30,7 @@ const RemainingTime = ({ id }) => {
         };
 
         fetchRemainingTime();
-    });
+    }, []);
 
     return (
         <div>

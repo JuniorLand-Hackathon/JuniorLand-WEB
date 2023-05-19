@@ -76,7 +76,7 @@ function Present() {
             }
         };
         fetchImage();
-    });
+    }, []);
 
     return (
         <PresentLayoutBlock>

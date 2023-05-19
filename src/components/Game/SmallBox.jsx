@@ -23,7 +23,7 @@ function SmallBox() {
         api();
 
         return;
-    });
+    }, []);
 
     const puzzleImg = [
         {

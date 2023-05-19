@@ -24,7 +24,7 @@ function Main() {
         };
 
         api();
-    });
+    }, []);
 
     return (
         <StyledWrapper>

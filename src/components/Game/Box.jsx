@@ -23,7 +23,7 @@ function Box() {
         api();
 
         return;
-    });
+    }, []);
 
     const img = [
         {

@@ -38,7 +38,7 @@ const FormPage = () => {
             }
         };
         fetchData();
-    });
+    }, []);
     return (
         <>
             <LogoHeader />

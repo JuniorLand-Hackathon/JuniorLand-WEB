@@ -28,7 +28,7 @@ const VideoPlayer = ({ id }) => {
         };
 
         fetchVideo();
-    });
+    }, []);
 
     return (
         <div>

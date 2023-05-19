@@ -23,7 +23,7 @@ function Lank() {
         api();
 
         return;
-    });
+    }, []);
 
     const lankImg = [
         {
