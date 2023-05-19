@@ -1,56 +1,68 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { mapResolver } from '../../util/utils';
 
 function Box() {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const [giftsSize, setgiftsSize] = useState();
+    const [educationsSize, seteducationsSize] = useState();
+
+    useEffect(() => {
+        const api = async () => {
+            const response = await axios.get(
+                `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
+                    'id',
+                )}${params.get('phone').slice(-4)}`,
+            );
+            setgiftsSize(response.data.giftsSize);
+            seteducationsSize(response.data.educationsSize);
+        };
+        api();
+
+        return;
+    }, []);
     const img = [
         {
-            link: '',
             url: '/images/game/game1.png',
         },
         {
-            link: '',
             url: '/images/game/game2.png',
         },
         {
-            link: '',
             url: '/images/game/game5.png',
         },
         {
-            link: '',
             url: '/images/game/game3.png',
         },
         {
-            link: '',
             url: '/images/game/game6.png',
         },
         {
-            link: '',
             url: '/images/game/game7.png',
         },
         {
-            link: '',
             url: '/images/game/game8.png',
         },
         {
-            link: '',
             url: '/images/game/game10.png',
         },
         {
-            link: '',
             url: '/images/game/game11.png',
         },
         {
-            link: '',
             url: '/images/game/game12.png',
         },
         {
-            link: '',
             url: '/images/game/game14.png',
         },
         {
-            link: '',
             url: '/images/game/game15.png',
         },
-    ];
+    ].map((item) => mapResolver(item, giftsSize, educationsSize));
+
     return (
         <StyledWrapper>
             {img.map((data, index) => (
@@ -72,7 +84,6 @@ const StyledWrapper = styled.div`
     width: 62rem;
     flex-wrap: wrap;
     margin-bottom: 16px;
-
 `;
 
 const StyledLi = styled.div`

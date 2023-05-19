@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoHeader from '../components/LogoHeader';
-import { useState, useEffect } from 'react';
 import { extractVideoIDFromURL } from '../util/utils';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 const FormPage = () => {
     const [presentURLs, setPresentURLs] = useState(['']);
@@ -10,13 +10,14 @@ const FormPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch(
                     `${
                         process.env.REACT_APP_SERVER_ADDR
-                    }/childrens/${params.get('id')}${params
+                    }/children/${params.get('id')}${params
                         .get('phone')
                         .slice(-4)}`,
                 );
@@ -137,7 +138,7 @@ const FormPage = () => {
                             await fetch(
                                 `${
                                     process.env.REACT_APP_SERVER_ADDR
-                                }/childrens/${params.get('id')}${params
+                                }/children/${params.get('id')}${params
                                     .get('phone')
                                     .slice(-4)}`,
                                 {
@@ -154,14 +155,15 @@ const FormPage = () => {
                                                 ),
                                             };
                                         }),
+
                                         videoIds: videoURLs.map((url) => {
                                             return extractVideoIDFromURL(url);
                                         }),
                                     }),
                                 },
                             );
+
                             alert('등록이 완료되었습니다!');
-                            console.log(123);
                             navigate('/main?' + params.toString());
                         } catch (e) {
                             console.error(e);

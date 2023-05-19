@@ -1,7 +1,30 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { mapResolver } from '../../util/utils';
 
 function CategoryNav() {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const [giftsSize, setgiftsSize] = useState();
+    const [educationsSize, seteducationsSize] = useState();
+
+    useEffect(() => {
+        const api = async () => {
+            const response = await axios.get(
+                `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
+                    'id',
+                )}${params.get('phone').slice(-4)}`,
+            );
+            setgiftsSize(response.data.giftsSize);
+            seteducationsSize(response.data.educationsSize);
+        };
+        api();
+
+        return;
+    }, []);
+
     const menu = [
         { name: '퍼즐/보드' },
         { name: '패션/스타일' },
@@ -10,12 +33,15 @@ function CategoryNav() {
         { name: '자작게임' },
         { name: '스포츠/레이싱' },
         { name: '어드벤처' },
-    ];
+    ].map((item) => mapResolver(item, giftsSize, educationsSize));
+
     return (
         <StyledWrapper>
             <StyledInWrapper>
                 {menu.map((item) => (
-                    <StyledMenu>{item.name}</StyledMenu>
+                    <a href={item.link}>
+                        <StyledMenu>{item.name}</StyledMenu>
+                    </a>
                 ))}
             </StyledInWrapper>
         </StyledWrapper>
@@ -36,6 +62,10 @@ const StyledInWrapper = styled.div`
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    a {
+        overflow: hidden;
+        display: block;
+    }
 `;
 
 const StyledMenu = styled.li`
