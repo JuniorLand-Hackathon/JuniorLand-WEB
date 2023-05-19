@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
@@ -67,7 +68,7 @@ function Present() {
                         'id',
                     )}${[params.get('phone').slice(-4)]}`,
                 );
-                setImage(response.data.gifts[id - 1].url);
+                setImage(response.data.gifts[id].url);
             } catch (error) {
                 console.error(
                     '이미지 데이터를 가져오는 중에 에러가 발생했습니다:',
@@ -76,7 +77,7 @@ function Present() {
             }
         };
         fetchImage();
-    });
+    }, []);
 
     return (
         <PresentLayoutBlock>

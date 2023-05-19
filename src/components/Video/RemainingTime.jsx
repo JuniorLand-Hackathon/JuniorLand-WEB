@@ -6,10 +6,10 @@ import { useLocation } from 'react-router';
 
 const RemainingTime = ({ id }) => {
     const location = useLocation();
-    const params = new URLSearchParams(location.search);
     const [remainingTime, setRemainingTime] = useState('');
 
     useEffect(() => {
+        const params = new URLSearchParams(location.search);
         // 남은 시간을 서버에서 가져오는 함수
         const fetchRemainingTime = async () => {
             try {
@@ -20,7 +20,7 @@ const RemainingTime = ({ id }) => {
                 );
                 console.log(id);
                 console.log(response.data.educations);
-                setRemainingTime(response.data.educations[id - 1].duration);
+                setRemainingTime(response.data.educations[id].duration);
             } catch (error) {
                 console.error(
                     '남은 시간을 가져오는 중에 에러가 발생했습니다:',
@@ -30,7 +30,7 @@ const RemainingTime = ({ id }) => {
         };
 
         fetchRemainingTime();
-    });
+    }, [id, location.search]);
 
     return (
         <div>

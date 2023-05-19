@@ -11,6 +11,7 @@ import LogoNav from '../components/Nav/LogoNav';
 
 function Main() {
     const location = useLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const params = new URLSearchParams(location.search);
 
     useEffect(() => {
@@ -24,7 +25,7 @@ function Main() {
         };
 
         api();
-    });
+    }, [params]);
 
     return (
         <StyledWrapper>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoHeader from '../components/LogoHeader';
@@ -9,7 +9,10 @@ const FormPage = () => {
     const [videoURLs, setVideoURLs] = useState(['']);
     const navigate = useNavigate();
     const location = useLocation();
-    const params = new URLSearchParams(location.search);
+    const params = useMemo(
+        () => new URLSearchParams(location.search),
+        [location.search],
+    );
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,7 +41,7 @@ const FormPage = () => {
             }
         };
         fetchData();
-    });
+    }, [params]);
     return (
         <>
             <LogoHeader />

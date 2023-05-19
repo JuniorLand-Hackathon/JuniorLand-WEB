@@ -5,10 +5,10 @@ import YouTube from 'react-youtube';
 
 const VideoPlayer = ({ id }) => {
     const location = useLocation();
-    const params = new URLSearchParams(location.search);
     const [videoUrl, setVideoUrl] = useState('');
 
     useEffect(() => {
+        const params = new URLSearchParams(location.search);
         // 비디오 데이터를 서버에서 가져오는 함수
         const fetchVideo = async () => {
             try {
@@ -17,8 +17,8 @@ const VideoPlayer = ({ id }) => {
                         'id',
                     )}${[params.get('phone').slice(-4)]}`,
                 );
-                console.log(response.data.educations[id - 1].videoId);
-                setVideoUrl(response.data.educations[id - 1].videoId);
+                console.log(response.data.educations[id].videoId);
+                setVideoUrl(response.data.educations[id].videoId);
             } catch (error) {
                 console.error(
                     '비디오 데이터를 가져오는 중에 에러가 발생했습니다:',
@@ -28,7 +28,7 @@ const VideoPlayer = ({ id }) => {
         };
 
         fetchVideo();
-    });
+    }, [id, location.search]);
 
     return (
         <div>
