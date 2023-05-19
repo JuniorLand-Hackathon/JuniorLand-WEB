@@ -27,7 +27,7 @@ function CategoryNav() {
         api();
 
         return;
-    }, []);
+    });
 
     const menu = [
         { name: '퍼즐/보드' },

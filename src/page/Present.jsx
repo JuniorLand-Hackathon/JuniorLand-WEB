@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const PresentLayoutBlock = styled.div`
@@ -55,8 +55,7 @@ const Button = styled.div`
 function Present() {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    // 아이 이름(query params), 이미지 불러오기
-    const [childName, setchildName] = useState('');
+
     const [image, setImage] = useState('');
 
     const { id } = useParams();

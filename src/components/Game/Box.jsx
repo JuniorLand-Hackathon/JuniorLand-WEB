@@ -23,7 +23,8 @@ function Box() {
         api();
 
         return;
-    }, []);
+    });
+
     const img = [
         {
             url: '/images/game/game1.png',

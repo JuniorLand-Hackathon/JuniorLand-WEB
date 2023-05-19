@@ -1,8 +1,8 @@
 import { CiTimer } from 'react-icons/ci';
 
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import axios from 'axios';
 
 const RemainingTime = ({ id }) => {
     const location = useLocation();
@@ -30,7 +30,7 @@ const RemainingTime = ({ id }) => {
         };
 
         fetchRemainingTime();
-    }, []);
+    });
 
     return (
         <div>

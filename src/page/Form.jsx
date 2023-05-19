@@ -10,16 +10,14 @@ const FormPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch(
-                    `${
-                        process.env.REACT_APP_SERVER_ADDR
-                    }/children/${params.get('id')}${params
-                        .get('phone')
-                        .slice(-4)}`,
+                    `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
+                        'id',
+                    )}${params.get('phone').slice(-4)}`,
                 );
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -40,7 +38,7 @@ const FormPage = () => {
             }
         };
         fetchData();
-    }, []);
+    });
     return (
         <>
             <LogoHeader />
