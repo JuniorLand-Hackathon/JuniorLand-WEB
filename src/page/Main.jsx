@@ -67,18 +67,6 @@ const StyledHeader = styled.header`
     justify-content: center;
 `;
 
-const StyledTitleWrapper = styled.div`
-    width: 100%;
-    padding: 1rem 3rem;
-`;
-
-const StyledTitle = styled.h1`
-    float: left;
-    width: 199px;
-    height: 75px;
-    font-family: 'Apple SD Gothic Neo';
-`;
-
 const StyledGameWrapper = styled.div`
     position: relative;
     width: 100%;

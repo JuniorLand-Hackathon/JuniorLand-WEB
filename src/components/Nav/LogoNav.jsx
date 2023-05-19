@@ -1,16 +1,10 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 
 function LogoNav() {
-    const location = useLocation();
-    const params = new URLSearchParams(location.search);
-
     return (
         <StyledNav>
-            <a href={'/main?' + params.toString()}>
-                <StyledImg src="/images/logo.gif" alt="logo_img" />
-            </a>
+            <StyledImg src="/images/logo.gif" alt="logo_img" />
             <StyledBtn>링크 복사하기</StyledBtn>
         </StyledNav>
     );
