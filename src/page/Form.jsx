@@ -2,24 +2,38 @@ import styled from 'styled-components';
 import LogoHeader from '../components/LogoHeader';
 import { useState, useEffect } from 'react';
 import { extractVideoIDFromURL } from '../util/utils';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const FormPage = () => {
     const [presentURLs, setPresentURLs] = useState(['']);
     const [videoURLs, setVideoURLs] = useState(['']);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('서버주소');
+                const response = await fetch(
+                    `${
+                        process.env.REACT_APP_SERVER_ADDR
+                    }/childrens/${params.get('id')}${params
+                        .get('phone')
+                        .slice(-4)}`,
+                );
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const jsonData = await response.json();
-                setPresentURLs(jsonData.presentURLs);
-                setVideoURLs(
-                    jsonData.videoURLs.map(
-                        (url) => `https://www.youtube.com/watch?v=${url}`,
-                    ),
+                const clientSidePresentURLs = jsonData.gifts.map(
+                    (gift) => gift.url,
                 );
+                clientSidePresentURLs.length &&
+                    setPresentURLs(clientSidePresentURLs);
+                const clientSideVideoURLs = jsonData.educations.map(
+                    (education) =>
+                        `https://www.youtube.com/watch?v=${education.videoId}`,
+                );
+                clientSideVideoURLs.length && setVideoURLs(clientSideVideoURLs);
             } catch (e) {
                 console.error(e);
             }
@@ -118,19 +132,40 @@ const FormPage = () => {
                 </Grid>
                 <SubmitButton
                     type="button"
-                    onClick={() => {
-                        console.log('서버URL', {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                                presentURLs,
-                                videoURLs: videoURLs.map((url) => {
-                                    return extractVideoIDFromURL(url);
-                                }),
-                            }),
-                        });
+                    onClick={async () => {
+                        try {
+                            await fetch(
+                                `${
+                                    process.env.REACT_APP_SERVER_ADDR
+                                }/childrens/${params.get('id')}${params
+                                    .get('phone')
+                                    .slice(-4)}`,
+                                {
+                                    method: 'PUT',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        gifts: presentURLs.map((url) => {
+                                            return {
+                                                url,
+                                                tagId: Math.floor(
+                                                    Math.random() * 48,
+                                                ),
+                                            };
+                                        }),
+                                        videoIds: videoURLs.map((url) => {
+                                            return extractVideoIDFromURL(url);
+                                        }),
+                                    }),
+                                },
+                            );
+                            alert('등록이 완료되었습니다!');
+                            console.log(123);
+                            navigate('/main?' + params.toString());
+                        } catch (e) {
+                            console.error(e);
+                        }
                     }}
                 >
                     제출하기
