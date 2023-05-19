@@ -1,111 +1,114 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { mapResolver } from '../../util/utils';
 
 function SmallBox() {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const [giftsSize, setgiftsSize] = useState();
+    const [educationsSize, seteducationsSize] = useState();
+
+    useEffect(() => {
+        const api = async () => {
+            const response = await axios.get(
+                `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
+                    'id',
+                )}${params.get('phone').slice(-4)}`,
+            );
+            setgiftsSize(response.data.giftsSize);
+            seteducationsSize(response.data.educationsSize);
+        };
+        api();
+
+        return;
+    }, []);
+
     const puzzleImg = [
         {
-            link: '',
             url: '/images/small/small1.png',
         },
         {
-            link: '',
             url: '/images/small/small2.png',
         },
         {
-            link: '',
             url: '/images/small/small3.png',
         },
-    ];
+    ].map((item) => mapResolver(item, giftsSize, educationsSize));
 
     const styleImg = [
         {
-            link: '',
             url: '/images/small/small4.png',
         },
         {
-            link: '',
             url: '/images/small/small5.png',
         },
         {
-            link: '',
             url: '/images/small/small6.png',
         },
         {
-            link: '',
             url: '/images/small/small7.png',
         },
-    ];
+    ].map((item) => mapResolver(item, giftsSize, educationsSize));
 
     const shootImg = [
         {
-            link: '',
             url: '/images/small/small8.png',
         },
         {
-            link: '',
             url: '/images/small/small9.png',
         },
         {
-            link: '',
             url: '/images/small/small10.png',
         },
         {
-            link: '',
             url: '/images/small/small11.png',
         },
         {
-            link: '',
             url: '/images/small/small12.png',
         },
-    ];
+    ].map((item) => mapResolver(item, giftsSize, educationsSize));
 
     const tycounImg = [
         {
-            link: '',
             url: '/images/small/small19.png',
         },
         {
-            link: '',
             url: '/images/small/small20.png',
         },
         {
-            link: '',
             url: '/images/small/small21.png',
         },
         {
-            link: '',
             url: '/images/small/small22.png',
         },
-    ];
+    ].map((item) => mapResolver(item, giftsSize, educationsSize));
 
     const characterImg = [
         {
-            link: '',
             url: '/images/small/small13.png',
         },
         {
-            link: '',
             url: '/images/small/small14.png',
         },
         {
-            link: '',
             url: '/images/small/small15.png',
         },
-    ];
+    ].map((item) => mapResolver(item, giftsSize, educationsSize));
 
     const adventure = [
         {
-            link: '',
             url: '/images/small/small16.png',
         },
         {
-            link: '',
             url: '/images/small/small17.png',
         },
         {
-            link: '',
             url: '/images/small/small18.png',
         },
-    ];
+    ].map((item) => mapResolver(item, giftsSize, educationsSize));
+
     return (
         <StyledWrapper>
             <StyledTitleWrapper>
@@ -192,10 +195,10 @@ export default SmallBox;
 
 const StyledWrapper = styled.div`
     position: relative;
-    margin-top: 2rem;
-    height: 19.4rem;
+    margin-top: 32px;
+    height: 295px;
     overflow: hidden;
-    border-bottom: 1px solid #cbcbcb;
+    border-bottom: 0.0625rem solid #cbcbcb;
 `;
 
 const StyledGameWrapper = styled.div`
@@ -207,8 +210,8 @@ const StyledTitle = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.7rem 0;
-    font-size: 2rem;
+    padding: 11.2px 0;
+    font-size: 32px;
     font-weight: bold;
 `;
 
@@ -216,25 +219,25 @@ const StyledSubTitle = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.5rem 0;
+    padding: 8px 0;
     color: #365576;
     font-weight: bold;
-    border-left: 0.01rem solid #cbcbcb;
-    border-right: 0.01rem solid #cbcbcb;
+    border-left: 0.16px solid #cbcbcb;
+    border-right: 0.16px solid #cbcbcb;
 `;
 
 const StyledItem = styled.div`
     position: relative;
 
-    height: 40px;
+    height: 2.5rem;
 
-    border-top: 1px solid #cbcbcb;
-    border-left: 1px solid #d7d7d7;
+    border-top: 0.0625rem solid #cbcbcb;
+    border-left: 0.0625rem solid #d7d7d7;
 
     a {
         overflow: hidden;
         display: block;
-        height: 43px;
+        height: 2.6875rem;
     }
 
     img {
@@ -245,20 +248,20 @@ const StyledItem = styled.div`
 `;
 
 const StyledTitleWrapper = styled.div`
-    border: 1px solid #cbcbcb;
-    border-top: 2px solid #435066;
+    border: 0.0625rem solid #cbcbcb;
+    border-top: 0.125rem solid #435066;
 `;
 
 const StyledNullItem = styled.div`
-    border-bottom: 1px solid #cbcbcb;
-    border-left: 1px solid #cbcbcb;
+    border-bottom: 0.0625rem solid #cbcbcb;
+    border-left: 0.0625rem solid #cbcbcb;
     background-color: #f3f3f3;
-    min-height: 42px;
+    min-height: 2.625rem;
 `;
 
 const StyledNullSecondItem = styled.div`
-    border-bottom: 1px solid #cbcbcb;
-    border-left: 1px solid #cbcbcb;
+    border-bottom: 0.0625rem solid #cbcbcb;
+    border-left: 0.0625rem solid #cbcbcb;
     background-color: #f3f3f3;
     height: 100%;
 `;

@@ -59,7 +59,6 @@ const StyledItemWrapper = styled.div`
     align-items: center;
     padding: 0 3rem;
     height: 100%;
-    
 `;
 
 const StyledTitleWrapper = styled.div`

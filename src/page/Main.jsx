@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled } from 'styled-components';
 import Footer from '../components/Footer';
 import Box from '../components/Game/Box';
@@ -7,16 +10,30 @@ import CategoryNav from '../components/Nav/CategoryNav';
 import LogoNav from '../components/Nav/LogoNav';
 
 function Main() {
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+
+    useEffect(() => {
+        const api = async () => {
+            const response = await axios.get(
+                `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
+                    'id',
+                )}${params.get('phone').slice(-4)}`,
+            );
+            return response.data;
+        };
+
+        api();
+    }, []);
+
     return (
         <StyledWrapper>
             <LogoNav />
-
             {/* <StyledHeader>
                 <StyledTitleWrapper>
                     <StyledTitle>게임랜드</StyledTitle>
                 </StyledTitleWrapper>
             </StyledHeader> */}
-
             <StyledGameWrapper>
                 <CategoryNav />
                 <Top />
