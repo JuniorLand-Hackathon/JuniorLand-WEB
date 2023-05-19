@@ -9,8 +9,12 @@ function CategoryNav() {
     const params = new URLSearchParams(location.search);
     const [giftsSize, setgiftsSize] = useState();
     const [educationsSize, seteducationsSize] = useState();
+    const currentPage = window.location.href;
 
     useEffect(() => {
+        if (currentPage.endsWith('/404')) {
+            return;
+        }
         const api = async () => {
             const response = await axios.get(
                 `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
