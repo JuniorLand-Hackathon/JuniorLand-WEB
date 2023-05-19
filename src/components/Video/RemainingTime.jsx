@@ -20,7 +20,7 @@ const RemainingTime = ({ id }) => {
                 );
                 console.log(id);
                 console.log(response.data.educations);
-                setRemainingTime(response.data.educations[id - 1].duration);
+                setRemainingTime(response.data.educations[id].duration);
             } catch (error) {
                 console.error(
                     '남은 시간을 가져오는 중에 에러가 발생했습니다:',
