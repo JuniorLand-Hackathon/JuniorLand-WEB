@@ -57,13 +57,16 @@ const StyledItemWrapper = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1rem 3rem;
+    padding: 0 3rem;
+    height: 100%;
+    
 `;
 
 const StyledTitleWrapper = styled.div`
     left: 0px;
     h3 {
         font-size: 2.2rem;
+        font-weight: bold;
     }
 `;
 
@@ -107,4 +110,5 @@ const StyledTopWrapper = styled.div`
     justify-content: space-around;
     align-items: center;
     width: 100%;
+    margin-bottom: 1.5rem;
 `;
