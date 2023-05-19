@@ -14,13 +14,13 @@ const RemainingTime = ({ id }) => {
         const fetchRemainingTime = async () => {
             try {
                 const response = await axios.get(
-                    `${
-                        process.env.REACT_APP_SERVER_ADDR
-                    }/childrens/${params.get('id')}${[
-                        params.get('phone').slice(-4),
-                    ]}`,
+                    `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
+                        'id',
+                    )}${[params.get('phone').slice(-4)]}`,
                 );
-                setRemainingTime(response.educations[id].duration);
+                console.log(id);
+                console.log(response.data.educations);
+                setRemainingTime(response.data.educations[id - 1].duration);
             } catch (error) {
                 console.error(
                     '남은 시간을 가져오는 중에 에러가 발생했습니다:',

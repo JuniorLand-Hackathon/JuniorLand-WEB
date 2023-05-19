@@ -26,17 +26,15 @@ const VideoPlayer = ({ id }) => {
 
     useEffect(() => {
         // 비디오 데이터를 서버에서 가져오는 함수
-
         const fetchVideo = async () => {
             try {
                 const response = await axios.get(
-                    `${
-                        process.env.REACT_APP_SERVER_ADDR
-                    }/childrens/${params.get('id')}${[
-                        params.get('phone').slice(-4),
-                    ]}`,
+                    `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
+                        'id',
+                    )}${[params.get('phone').slice(-4)]}`,
                 );
-                setVideoUrl(response.educations[id].videoId);
+                console.log(response.data.educations[id - 1].videoId);
+                setVideoUrl(response.data.educations[id - 1].videoId);
             } catch (error) {
                 console.error(
                     '비디오 데이터를 가져오는 중에 에러가 발생했습니다:',
@@ -64,9 +62,7 @@ const VideoPlayer = ({ id }) => {
 };
 
 function Video({ id }) {
-    <VideoTemplate>
-        <VideoPlayer id={id} />
-    </VideoTemplate>;
+    return <VideoPlayer id={id} />;
 }
 
 export default Video;

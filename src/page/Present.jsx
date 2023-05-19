@@ -25,7 +25,8 @@ const PresentLayoutBlock = styled.div`
 const Image = styled.div`
     width: 303px;
     height: 165px;
-    background: #dcdce4;
+    background: url(${(props) => props.imageurl});
+    background-size: cover;
 `;
 
 const Button = styled.div`
@@ -63,12 +64,11 @@ function Present() {
         const fetchImage = async () => {
             try {
                 const response = await axios.get(
-                    `${
-                        process.env.REACT_APP_SERVER_ADDR
-                    }/childrens/${params.get('id')}${[
-                        params.get('phone').slice(-4),
-                    ]}`,
+                    `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
+                        'id',
+                    )}${[params.get('phone').slice(-4)]}`,
                 );
+                setImage(response.data.gifts[id - 1].url);
             } catch (error) {
                 console.error(
                     '이미지 데이터를 가져오는 중에 에러가 발생했습니다:',
@@ -76,13 +76,14 @@ function Present() {
                 );
             }
         };
+        fetchImage();
     });
 
     return (
         <PresentLayoutBlock>
             <p>{params.get('id')}을/를 위한 선물이 도착했습니다.</p>
-            <Image id={id} />
-            <Button>선물 받기</Button>
+            <Image imageurl={image} />
+            <Button>와 신난다</Button>
         </PresentLayoutBlock>
     );
 }
