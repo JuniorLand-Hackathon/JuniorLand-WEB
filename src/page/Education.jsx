@@ -1,6 +1,6 @@
-import Video from '../components/Video';
+import Video from '../components/Video/Video';
 import { useParams } from 'react-router';
-import RemainingTime from '../components/RemainingTime';
+import RemainingTime from '../components/Video/RemainingTime';
 
 function Education() {
     const { id } = useParams();
