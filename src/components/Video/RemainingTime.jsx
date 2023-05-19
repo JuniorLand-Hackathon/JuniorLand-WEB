@@ -6,10 +6,10 @@ import { useLocation } from 'react-router';
 
 const RemainingTime = ({ id }) => {
     const location = useLocation();
-    const params = new URLSearchParams(location.search);
     const [remainingTime, setRemainingTime] = useState('');
 
     useEffect(() => {
+        const params = new URLSearchParams(location.search);
         // 남은 시간을 서버에서 가져오는 함수
         const fetchRemainingTime = async () => {
             try {
@@ -30,7 +30,7 @@ const RemainingTime = ({ id }) => {
         };
 
         fetchRemainingTime();
-    }, []);
+    }, [id, location.search]);
 
     return (
         <div>

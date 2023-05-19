@@ -6,11 +6,11 @@ import { mapResolver } from '../../util/utils';
 
 function Box() {
     const location = useLocation();
-    const params = new URLSearchParams(location.search);
     const [giftsSize, setgiftsSize] = useState();
     const [educationsSize, seteducationsSize] = useState();
 
     useEffect(() => {
+        const params = new URLSearchParams(location.search);
         const api = async () => {
             const response = await axios.get(
                 `${process.env.REACT_APP_SERVER_ADDR}/children/${params.get(
@@ -23,7 +23,7 @@ function Box() {
         api();
 
         return;
-    }, []);
+    }, [location.search]);
 
     const img = [
         {

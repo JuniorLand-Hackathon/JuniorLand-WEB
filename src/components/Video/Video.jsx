@@ -5,10 +5,10 @@ import YouTube from 'react-youtube';
 
 const VideoPlayer = ({ id }) => {
     const location = useLocation();
-    const params = new URLSearchParams(location.search);
     const [videoUrl, setVideoUrl] = useState('');
 
     useEffect(() => {
+        const params = new URLSearchParams(location.search);
         // 비디오 데이터를 서버에서 가져오는 함수
         const fetchVideo = async () => {
             try {
@@ -28,7 +28,7 @@ const VideoPlayer = ({ id }) => {
         };
 
         fetchVideo();
-    }, []);
+    }, [id, location.search]);
 
     return (
         <div>
